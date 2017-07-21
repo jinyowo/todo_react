@@ -5,7 +5,7 @@ import AddLi from '../component/AddLi';
 import TodoLi from '../component/TodoLi';
 
 /**
- * Container: Todo
+ * Container
  */
 class Todo extends Component {
     constructor() {
