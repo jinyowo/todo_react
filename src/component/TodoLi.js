@@ -1,41 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import TodoElement from './TodoElement';
+import { List } from 'immutable';
 
-// class TodoLi extends Component {
-//     onClickRemoveBtn() {
-//         this.props.handleRemovedData(this.props.todo);
-//     }
-//
-//     render() {
-//         return(
-//             <li>
-//                 <span>{this.props.todo}</span>
-//                 <span className="btn-container" onClick={this.onClickRemoveBtn.bind(this)}><a href="#">삭제</a></span>
-//             </li>
-//         );
-//     }
-// }
+const TodoLi = ({todos, onRemove}) => {
 
-const TodoLi = ({handleRemovedData, todo}) => {
-    const onClickRemoveBtn = () => {
-        handleRemovedData(todo);
-    }
+    const todoList = todos.map((todo, index) => {
+        return <TodoElement key={index}
+                            {...todo.toJS()}
+                            onRemove={onRemove}/>;
+    });
 
     return (
-        <li>
-            <span>{todo}</span>
-            <span className="btn-container" >
-                <a href="#" onClick={onClickRemoveBtn}>삭제</a>
-            </span>
-        </li>
+        <ul className="TodoList">
+            {todoList}
+        </ul>
     );
 
 };
 
 
 TodoLi.propTypes = {
-    handleRemovedData: PropTypes.func.isRequired,
-    todo: PropTypes.string.isRequired
+    todos: PropTypes.instanceOf(List),
+    onRemove: PropTypes.func.isRequired
+};
+
+TodoLi.defaultProps = {
+    todos: [],
+    onRemove: () => console.warn('onRemove not defined')
 };
 
 export default TodoLi;
